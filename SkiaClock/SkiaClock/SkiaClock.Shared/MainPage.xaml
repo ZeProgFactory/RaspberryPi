@@ -8,7 +8,8 @@
     xmlns:skia="using:SkiaSharp.Views.UWP"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <skia:SKXamlCanvas x:Name="canvasView" PaintSurface="OnPaintSurface" />
+    <Grid Background="#000" Padding="40">
+        <skia:SKXamlCanvas x:Name="canvasView"
+                           PaintSurface="OnPaintSurface" />
     </Grid>
 </Page>

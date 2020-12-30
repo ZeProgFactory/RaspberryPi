@@ -13,6 +13,8 @@ namespace SkiaClock
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -21,10 +23,24 @@ namespace SkiaClock
             var aTimer = new System.Timers.Timer(500);
 
             // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += ATimer_Elapsed;  
+            aTimer.Elapsed += ATimer_Elapsed;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
+
+            // - - -  - - - 
+
+            Background = SKColors.White;
+            Foreground = SKColors.Black;
+            MarkerColor = SKColors.Gray;
+
+            Background = SKColors.Black;
+            Foreground = SKColors.White;
+            MarkerColor = SKColors.Gray;
         }
+
+        SKColor Background = SKColors.White;
+        SKColor Foreground = SKColors.Black;
+        SKColor MarkerColor = SKColors.Gray;
 
         private void ATimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -39,17 +55,17 @@ namespace SkiaClock
             SKSurface surface = args.Surface;
             SKCanvas canvas = surface.Canvas;
 
-            canvas.Clear();
+            canvas.Clear(Background);
 
             using (SKPaint strokePaint = new SKPaint())
             using (SKPaint fillPaint = new SKPaint())
             {
                 strokePaint.Style = SKPaintStyle.Stroke;
-                strokePaint.Color = SKColors.Black;
+                strokePaint.Color = Foreground;
                 strokePaint.StrokeCap = SKStrokeCap.Round;
 
                 fillPaint.Style = SKPaintStyle.Fill;
-                fillPaint.Color = SKColors.Gray;
+                fillPaint.Color = MarkerColor;
 
                 // Transform for 100-radius circle centered at origin
                 canvas.Translate(info.Width / 2f, info.Height / 2f);
