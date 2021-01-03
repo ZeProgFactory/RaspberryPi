@@ -11,6 +11,9 @@ namespace Test
             InitializeComponent();
 
             MainPage = new MainPage();
+
+            //KO MainPage = new NavigationPage(new MainPage());
+
         }
 
         protected override void OnStart()

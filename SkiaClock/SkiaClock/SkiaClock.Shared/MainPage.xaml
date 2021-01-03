@@ -11,5 +11,6 @@
     <Grid Background="#000" Padding="40">
         <skia:SKXamlCanvas x:Name="canvasView"
                            PaintSurface="OnPaintSurface" />
+        
     </Grid>
 </Page>
