@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microcharts" Version="0.9.5.9" />
-    <PackageReference Include="SkiaForms" Version="1.0.0-pre3" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
   </ItemGroup>
 
