@@ -13,6 +13,19 @@ namespace Test
       public MainPage()
       {
          InitializeComponent();
+
+         label.Text = "timer running...";
+         Device.StartTimer(new TimeSpan(0, 0, 1), () =>
+         {
+            // do something every 1 seconds
+            Device.BeginInvokeOnMainThread(() =>
+            {
+               // interact with UI elements
+               label.Text = DateTime.Now.ToString("HH:mm:ss");
+            });
+
+            return true; // runs again, or false to stop
+         });
       }
 
       private void Button_Clicked(object sender, EventArgs e)
