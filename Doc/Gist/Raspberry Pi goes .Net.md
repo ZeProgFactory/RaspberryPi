@@ -26,7 +26,7 @@ Select ```VNC```
 Answer Yes  
 Select Finish to quit (or ESC).  
 Now that we finished installing VNC, let’s see how to connect
-  
+
 #### From Windows
 From Windows it is the same thing, you can [download](https://www.realvnc.com/fr/connect/download/viewer/windows/) and install RealVNC from their website.
 
@@ -36,9 +36,9 @@ The requested logins are the usual users of the system (for example pi/raspberry
 
 #### From Mac OS
 RealVNC is also available for Mac OS  so just get and install it and then follow the same steps as below 🙂  
+
   
-  
-  
+
 ## Install .NET Core On Raspberry Pi
 based on https://blog.technitium.com/2019/01/quick-and-easy-guide-to-install-net.html
 .NET Core is a cross-platform runtime available for x64 and ARM processors that can be used to run ASP.NET Core web applications and standalone .NET Core console applications on Windows, Linux and macOS.
@@ -65,6 +65,19 @@ sudo tar -zxf aspnetcore-runtime-5.0.0-linux-arm.tar.gz -C /opt/dotnet
 sudo ln -s /opt/dotnet/dotnet /usr/bin
 ```
 
+
+
+```
+wget https://download.visualstudio.microsoft.com/download/pr/8f09af48-e88e-4b91-bae1-08a5c9183559/e10eefacab56a4f4c1165d4e26a5f0f9/dotnet-sdk-5.0.200-linux-arm.tar.gz
+sudo mkdir -p /opt/dotnet
+sudo tar -zxf dotnet-sdk-5.0.200-linux-arm.tar.gz -C /opt/dotnet
+sudo ln -s /opt/dotnet/dotnet /usr/bin
+```
+
+
+
+
+
 Now just enter ```dotnet``` on the command line to confirm.
 
 Its Done!
@@ -77,7 +90,7 @@ Now you are ready to run ASP.NET Core or .NET Core console apps on your Raspberr
 ```
 sudo apt-get install mono-complete
 ```
-   
+
 Then you need to install the bindings between Mono and GTK:  
 ```
 sudo apt-get install gtk-sharp2
@@ -99,14 +112,14 @@ sudo apt-get install mono-complete
 sudo apt-get install gtk-sharp2
 sudo apt-get install libwebkitgtk-dev
 ```
-    
+
 ### Uninstall all
 ```
 sudo apt-get remove libwebkitgtk-dev
 sudo apt-get remove gtk-sharp2
 sudo apt-get remove mono-complete
 ```
-   
+
 ```
 sudo nano /etc/mono/config   
 ```
@@ -128,7 +141,7 @@ add following lines to mono config for the necessary file mappings:
 <dllmap dll="gdksharpglue-2" target="/usr/lib/cli/gdk-sharp-2.0/libgdksharpglue-2.so" os="!windows"/> 
 <dllmap dll="libgdk_pixbuf-2.0-0.dll" target="libgdk_pixbuf-2.0.so" os="!windows"/> 
 ```
-   
+
 See if lib exists
 ```
 find /usr -name *gdksharpglue*
