@@ -1,4 +1,4 @@
-#Install Ref :
+# Install Ref :
 
 https://raspberrytips.fr/installer-raspbian-raspberry-pi/
 
@@ -14,7 +14,7 @@ http://raspbian.raspberrypi.org/raspbian/pool/main/p/postgresql-13/
 https://www.raspberrypi.org/documentation/raspbian/updating.md
 
 
-alternatives 
+# Alternatives 
 https://opensource.com/article/17/10/set-postgres-database-your-raspberry-pi
 
 https://www.compose.com/articles/faster-operations-with-the-jsonb-data-type-in-postgresql/
