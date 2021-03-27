@@ -84,6 +84,46 @@ Its Done!
 Now you are ready to run ASP.NET Core or .NET Core console apps on your Raspberry Pi!
 
 
+
+### Installing .NET Core WebApplication
+#### VisualStudio publish profile
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <DeleteExistingFiles>True</DeleteExistingFiles>
+    <ExcludeApp_Data>False</ExcludeApp_Data>
+    <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <PublishProvider>FileSystem</PublishProvider>
+    <PublishUrl>bin\Release\net5.0\publish\</PublishUrl>
+    <WebPublishMethod>FileSystem</WebPublishMethod>
+    <SiteUrlToLaunchAfterPublish />
+    <TargetFramework>net5.0</TargetFramework>
+    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
+    <ProjectGuid>eaec3827-b35e-4e68-97ca-b8eac4f3b086</ProjectGuid>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>False</PublishSingleFile>
+    <PublishTrimmed>True</PublishTrimmed>
+  </PropertyGroup>
+</Project>
+```
+
+#### Actions on the Pi
+Copy publish folder ...
+```
+sudo chmod +x WebApplication
+./WebApplication
+```
+
+
+
+
+
 ## Xamarin.Forms
 ### Install Mono on the Raspberry
 
