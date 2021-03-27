@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
-    [ApiController]
     public class HTMLPagesController : ControllerBase
     {
         string HTML = @"
@@ -27,7 +26,7 @@ namespace WebApplication.Controllers
 ";
 
         [HttpGet]
-        [Route("Home")]
+        [Route("~/Home")]
         public ContentResult Get()
         {
             return HTMLSource( HTML );
