@@ -84,6 +84,61 @@ Its Done!
 Now you are ready to run ASP.NET Core or .NET Core console apps on your Raspberry Pi!
 
 
+
+### Installing .NET Core WebApplication
+#### VisualStudio publish profile
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <DeleteExistingFiles>True</DeleteExistingFiles>
+    <ExcludeApp_Data>False</ExcludeApp_Data>
+    <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
+    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+    <LastUsedPlatform>Any CPU</LastUsedPlatform>
+    <PublishProvider>FileSystem</PublishProvider>
+    <PublishUrl>bin\Release\net5.0\publish\</PublishUrl>
+    <WebPublishMethod>FileSystem</WebPublishMethod>
+    <SiteUrlToLaunchAfterPublish />
+    <TargetFramework>net5.0</TargetFramework>
+    <RuntimeIdentifier>linux-arm</RuntimeIdentifier>
+    <ProjectGuid>eaec3827-b35e-4e68-97ca-b8eac4f3b086</ProjectGuid>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>False</PublishSingleFile>
+    <PublishTrimmed>True</PublishTrimmed>
+  </PropertyGroup>
+</Project>
+```
+
+#### Actions on the Pi
+Copy publish folder ...
+```
+sudo chmod +x WebApplication
+./WebApplication
+```
+
+
+```
+./WebApplication --urls "http://*:5080"
+```
+
+### Links
+
+[Setup .NET Core 3.0 Runtime and SDK on Raspberry Pi 4 - Edi Wang](https://edi.wang/post/2019/9/29/setup-net-core-30-runtime-and-sdk-on-raspberry-pi-4)
+
+[Step by step: Running ASP.NET Core on Raspberry Pi - Code it Yourself... (mendible.com)](https://carlos.mendible.com/2017/03/21/step-by-step-running-aspnet-core-on-raspberry-pi/)
+
+[Hosting an ASP.NET Core 2 application on a Raspberry Pi - Thomas Levesque's .NET Blog](https://thomaslevesque.com/2018/04/17/hosting-an-asp-net-core-2-application-on-a-raspberry-pi/)
+
+[How to configure urls for Kestrel, WebListener and IIS express in ASP.NET Core (andrewlock.net)](https://andrewlock.net/configuring-urls-with-kestrel-iis-and-iis-express-with-asp-net-core/)
+
+
+
+
+
 ## Xamarin.Forms
 ### Install Mono on the Raspberry
 
