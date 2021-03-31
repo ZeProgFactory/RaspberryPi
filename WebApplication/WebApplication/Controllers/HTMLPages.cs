@@ -17,25 +17,27 @@ namespace WebApplication.Controllers
 <title>Page Title</title>
 </head>
 <body>
-
 <h1>This is a Heading</h1>
 <p>This is a paragraph.</p>
 <a href='https://www.ZPF.fr'>site ZPF.fr</a>
+{#Now#}
 </body>
 </html>
 ";
 
         [HttpGet]
-        [Route("~/Home")]
-        public ContentResult Get()
+        [Route("~/")]
+        public ContentResult GetHomePage()
         {
-            return HTMLSource( HTML );
+            return HTMLSource(HTML);
         }
 
         // - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  -
 
         public ContentResult HTMLSource(string text)
         {
+            text = text.Replace("{#Now#}", DateTime.Now.ToString());
+
             return new ContentResult
             {
                 ContentType = "text/html",
