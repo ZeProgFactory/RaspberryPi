@@ -8,13 +8,16 @@ namespace IOT
 {
    internal class Program
    {
+      // https://docs.microsoft.com/en-us/shows/IoT-101/
+      // https://github.com/dotnet/iot/blob/main/src/devices/Bmxx80/samples/Bme280.sample.cs
+
       private static void Main(string[] args)
       {
          System.Console.WriteLine("Hello World!");
 
          if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
          {
-            Pcf8574tSample.SampleEntryPoint();
+            //Pcf8574tSample.SampleEntryPoint();
 
             //{
             //// https://github.com/dotnet/iot/blob/main/src/devices/CharacterLcd/README.md
@@ -25,7 +28,6 @@ namespace IOT
             // MSP23008
 
          };
-
 
          if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
          {
@@ -38,7 +40,7 @@ namespace IOT
          // - - -  - - - 
 
          CpuTemperature cpuTemperature = new CpuTemperature();
-         var i = cpuTemperature.ReadTemperatures();
+
          if (cpuTemperature.IsAvailable)
          {
             double temperature = cpuTemperature.Temperature.DegreesCelsius;
