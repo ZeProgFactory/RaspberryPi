@@ -1,4 +1,13 @@
 ﻿
+|     | Color   | ESP32 | RBP I2C0 | RBP I2C1 |
+| +3V | Red     |  +3V  |          |          | 
+| SCL | Green   |  D3   |     28   |     5    |
+| SDA | Yellow  |  D2   |     27   |     3    |
+| GND | BLack   |  GND  |          |          |
+
+
+ 
+
 https://github.com/dotnet/iot
 
 Nugets
