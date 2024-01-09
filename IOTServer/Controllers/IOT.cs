@@ -4,10 +4,11 @@ using System.Diagnostics.Eventing.Reader;
 namespace IOTServer.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class IOT : ControllerBase
     {
-        [HttpGet(Name = "GetTemp")]
+        [AllowCrossSiteJson]
+        [Route("~/IOT/GetTemp")]
+        [HttpGet]
         public string GetTemp()
         {
             var t = ZPF.IOT.IOTHelper.GetTemp();
