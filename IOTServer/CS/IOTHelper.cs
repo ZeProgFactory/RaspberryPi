@@ -1,4 +1,4 @@
-﻿using System.Device.I2c;
+﻿using System.Device.I2c;   // Nuget: System.Device.Gpio
 
 namespace ZPF.IOT
 {
@@ -6,11 +6,28 @@ namespace ZPF.IOT
     {
         static int tmp102Address = 0x48;
         //int tmp102Address = 0x91 >> 1;
+        static I2cDevice i2c = null;
+
+        public static string LastMessage { get; private set; } = "";
 
         public static double GetTemp()
         {
-            // will create an I2C device on the bus 1(the default one) and with the device address 'tmp102Address'
-            I2cDevice i2c = I2cDevice.Create(new I2cConnectionSettings(1, tmp102Address));
+            LastMessage = "";
+
+            if (i2c == null)
+            {
+                // will create an I2C device on the bus 1(the default one) and with the device address 'tmp102Address'
+
+                try
+                {
+                    i2c = I2cDevice.Create(new I2cConnectionSettings(1, tmp102Address));
+                }
+                catch(Exception ex)
+                {
+                    LastMessage = ex.Message;
+                    return 0;
+                };
+            };
 
             byte[] dump = new byte[2];
             i2c.Read(dump);
