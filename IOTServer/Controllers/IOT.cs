@@ -22,5 +22,28 @@ namespace IOTServer.Controllers
                 return ZPF.IOT.IOTHelper.LastMessage;
             };
         }
+
+        [AllowCrossSiteJson]
+        [Route("~/IOT/GetStats")]
+        [HttpGet]
+        public TStats GetTStats()
+        {
+            var t = ZPF.IOT.IOTHelper.GetTemp();
+
+            if (string.IsNullOrEmpty(ZPF.IOT.IOTHelper.LastMessage))
+            {
+                return new TStats
+                {
+                    Temp = t,
+                };
+            }
+            else
+            {
+                return new TStats
+                {
+                    LastMessage = ZPF.IOT.IOTHelper.LastMessage,
+                };
+            };
+        }
     }
 }
