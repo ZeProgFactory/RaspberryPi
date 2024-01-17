@@ -57,8 +57,16 @@ namespace ZPF
             }
             else
             {
-                DataFolder = CleanPath(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\IOTServer\");
+                if (Environment.OSVersion.ToString().ToUpper().Contains("WINDOWS"))
+                {
+                    DataFolder = CleanPath(System.Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\IOTServer\");
+                }
+                else
+                {
+                    DataFolder = CleanPath(@"/home/pi/IOTServer/");
+                };
             };
+
 
             if (!Directory.Exists(DataFolder))
             {
