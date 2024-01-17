@@ -10,8 +10,6 @@
     }
 </style>
 
-@if (Width > 800)
-{
     <p style="text-align:center;font-size:128pt; font-weight:600;">@sNow</p>
 
     <table>
@@ -26,38 +24,24 @@
                 <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMin</p>
                 <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMax</p>
             </td>
-        </tr>
+            <td > 
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+            </td>
+            <td > 
+                <p style="text-align:center;font-size:96pt; font-weight:600;">@sTempExt</p>
+            </td>
+            <td > 
+                &nbsp;
+            </td>
+            <td>
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMin</p>
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax</p>
+            </td>        </tr>
     </table>
     
-}
-else
-{
-    <p style="text-align:center;font-size:64pt; font-weight:600;">@sNow</p>
-    <p style="text-align:center;font-size:64pt; font-weight:600;">@sTempInt</p>
-    <br />
-
-    <p style="align-content:center;text-align:center;font-size:24pt; font-weight:600;">
-        franceinfo
-        <audio controls>
-            <source src="http://direct.franceinfo.fr/live/franceinfo-midfi.mp3" type="audio/mpeg">
-            <source src="http://direct.franceinfo.fr/live/franceinfo-lofi.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </p>
-
-    <p style="vertical-align:central;text-align:center;font-size:24pt; font-weight:600;">
-        BR Schlager
-        <audio controls>
-            <source src="https://dispatcher.rndfnk.com/br/brschlager/live/mp3/mid" type="audio/mpeg">
-            <source src="https://dispatcher.rndfnk.com/br/brschlager/live/aac/low3" type="audio/aac">
-            Your browser does not support the audio element.
-        </audio>
-    </p>
-
-}
-
-@*<p>Window Height: @Height</p>
-<p>Window Width: @Width</p>*@
 
 @code {
     string sNow = "?";
@@ -65,44 +49,18 @@ else
     string sTempInt = "?";
     string sTempIntMin = "?";
     string sTempIntMax = "?";
-    decimal dTempIntMin = decimal.MaxValue;
-    decimal dTempIntMax = decimal.MinValue;
+
+    string sTempExt = "?";
+    string sTempExtMin = "?";
+    string sTempExtMax = "?";
 
     System.Threading.Timer? timerClock;
     System.Threading.Timer? timerTemp;
     double hr, min, sec;
 
-    private IJSObjectReference jscript;
-
-    public int Height { get; set; }
-    public int Width { get; set; }
-
-    private async Task OnButtonClick()
-    {
-        if (jscript == null)
-        {
-            jscript = await JS.InvokeAsync<IJSObjectReference>("import", "./Pages/Index.Razor.js");
-        };
-
-        Width = await jscript.InvokeAsync<int>("getWindowWidth");
-
-        //var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
-        //Height = dimension.Height;
-        //Width = dimension.Width;
-    }
-
-    public class WindowDimension
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-    }
-
-
     // NOTE: this math can be simplified!!!
     private async void SetClock(object? stateInfo)
     {
-        await OnButtonClick();
-
         //var time = DateTime.Now;
         //hr = 360.0 * time.Hour / 12 + 30.0 * time.Minute / 60.0;
         //min = 360.0 * time.Minute / 60 + 6.0 * time.Second / 60.0;
@@ -115,16 +73,15 @@ else
 
     private async void SetTemp(object? stateInfo)
     {
-        await OnButtonClick();
-
         // Uri uri = new("http://192.168.10.161/dump");
         // Uri uri = new("http://rbp-02.local:5000/IOT");
         // Uri uri = new("http://rbp-02.local:5000/IOT/GetTemp");
-        Uri uri = new("http://rbp-02.local:5000/IOT/GetStats");
+        Uri uriInt = new("http://rbp-02.local:5000/IOT/GetStats");
+        Uri uriExt = new("http://rbp-03.local:5000/IOT/GetStats");
 
         try
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            var request = new HttpRequestMessage(HttpMethod.Get, uriInt);
             request.SetBrowserRequestMode(BrowserRequestMode.Cors);  
             request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional            
 
@@ -134,43 +91,47 @@ else
 
                 if (response.IsSuccessStatusCode)
                 {
-                    sTempInt = response.Content.ReadAsStringAsync().Result;
+                    var stats = await response.Content.ReadFromJsonAsync<TStats>();
+                    
+                    try
+                    {
+                        sTempInt = $"{stats.Temp:0.0} °C";
+                        sTempIntMin = $"{stats.TempMin24:0.0}";
+                        sTempIntMax = $"{stats.TempMax24:0.0}";
+                    }
+                    catch{};
+                };
+            };
+        }
+        catch (Exception ex)
+        {
+            // await this.DisplayAlert("Error", ex.Message, "OK");
+            // sTempInt = ex.Message;
+        };
+
+        try
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, uriExt);
+            request.SetBrowserRequestMode(BrowserRequestMode.Cors);  
+            request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional            
+
+            using (var httpClient = new HttpClient())            
+            {
+                var response = await httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var stats = await response.Content.ReadFromJsonAsync<TStats>();
 
                     try
                     {
-                        var dTempInt = decimal.Parse(sTempInt.Replace("°C", ""));
-
-                        if( dTempInt > dTempIntMax)
-                        {
-                            dTempIntMax = dTempInt;
-                        };
-
-                        if( dTempInt < dTempIntMin)
-                        {
-                            dTempIntMin = dTempInt;
-                        };
-
-                        sTempInt = $"{dTempInt:0.0} °C";
-                        sTempIntMin = $"{dTempIntMin:0.0} °C";
-                        sTempIntMax = $"{dTempIntMax:0.0} °C";
+                        sTempExt = $"{stats.Temp:0.0} °C";
+                        sTempExtMin = $"{stats.TempMin24:0.0}";
+                        sTempExtMax = $"{stats.TempMax24:0.0}";
                     }
                     catch{};
+                };
             };
-            };
-
-            // HttpClient client = new();
-            // HttpResponseMessage response = await client.GetAsync(uri);
-
-            // if (response.IsSuccessStatusCode)
-            // {
-            //     String content = await response.Content.ReadAsStringAsync();
-
-            //     // content = content.Substring(content.IndexOf("<XMLDataResult>") + 15);
-            //     // content = content.Substring(0, content.IndexOf("</XMLDataResult>"));
-            //     // lbTemp.Text = content + " °C";
-
-            //     sTempInt = content;
-            // }
         }
         catch (Exception ex)
         {
