@@ -6,3 +6,7 @@ wget -O - https://raw.githubusercontent.com/pjgpetecodes/dotnet8pi/main/install.
 
 Install VS Code on Raspberry Pi:
 sudo apt install code -y
+
+
+
+sudo apt-get install sqlitebrowse

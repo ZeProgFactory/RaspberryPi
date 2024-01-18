@@ -36,31 +36,31 @@ namespace ZPF.IOT
             byte LSB = dump[1];
 
             double fDigitalTemp;
-            int iDigitalTemp;
+            short iDigitalTemp;
 
             // Bit 0 of second byte will always be 0 in 12-bit readings and 1 in 13-bit
             if ((byte)(LSB & 0x01) > 0)  // 13 bit mode
             {
                 // Combine bytes to create a signed int
-                iDigitalTemp = ((MSB) << 5) | (LSB >> 3);
+                iDigitalTemp = (short)(((MSB) << 5) | (LSB >> 3));
 
                 // Temperature data can be + or -, if it should be negative,
                 // convert 13 bit to 16 bit and use the 2s compliment.
                 if (iDigitalTemp > 0xFFF)
                 {
-                    iDigitalTemp |= 0xE000;
+                    iDigitalTemp = (short)(iDigitalTemp | 0xE000);
                 }
             }
             else  // 12 bit mode
             {
                 // Combine bytes to create a signed int 
-                iDigitalTemp = ((MSB) << 4) | (LSB >> 4);
+                iDigitalTemp = (short)(((MSB) << 4) | (LSB >> 4));
 
                 // Temperature data can be + or -, if it should be negative,
                 // convert 12 bit to 16 bit and use the 2s compliment.
                 if (iDigitalTemp > 0x7FF)
                 {
-                    iDigitalTemp |= 0xF000;
+                    iDigitalTemp = (short)(iDigitalTemp | 0xF000);
                 }
             }
 

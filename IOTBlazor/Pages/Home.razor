@@ -10,9 +10,9 @@
     }
 </style>
 
-    <p style="text-align:center;font-size:128pt; font-weight:600;">@sNow</p>
+    <p style="text-align:center;font-size:172pt; font-weight:600;">@sNow</p>
 
-    <table>
+@*     <table>
         <tr>
             <td > 
                 <p style="text-align:center;font-size:96pt; font-weight:600;">@sTempInt</p>
@@ -41,6 +41,49 @@
                 <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax</p>
             </td>        </tr>
     </table>
+ *@
+
+    <table align="center" >
+        <tr>
+            <td colspan="3" > 
+                <p style="text-align:center;font-size:96pt; font-weight:500;">@sTempInt</p>
+            </td>
+            <td > 
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+            </td>
+            <td colspan="3"> 
+                <p style="text-align:center;font-size:96pt; font-weight:500;">@sTempExt</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td> 
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMin</p>
+            </td>
+            <td > 
+                <p style=" vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
+            </td> 
+            <td>
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMax</p>
+            </td>
+            <td width="100" > 
+                &nbsp;
+            </td>
+            <td > 
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMin</p>
+            </td>
+            <td > 
+                <p style=" vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
+            </td>
+            <td>
+                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax</p>
+            </td>        
+        </tr>
+    </table>
+
     
 
 @code {
@@ -77,7 +120,7 @@
         // Uri uri = new("http://rbp-02.local:5000/IOT");
         // Uri uri = new("http://rbp-02.local:5000/IOT/GetTemp");
         Uri uriInt = new("http://rbp-02.local:5000/IOT/GetStats");
-        Uri uriExt = new("http://rbp-03.local:5000/IOT/GetStats");
+        Uri uriExt = new("http://192.168.10.73:5000/IOT/GetStats");
 
         try
         {
