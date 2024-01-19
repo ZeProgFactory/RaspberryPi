@@ -30,6 +30,12 @@ namespace IOTServer.Controllers
         [HttpGet]
         public TStats GetTStats()
         {
+            //Force garbage collection.
+            GC.Collect();
+
+            // Wait for all finalizers to complete before continuing.
+            GC.WaitForPendingFinalizers();
+
             MainViewModel.Current.OpenDB();
 
             var st = DB_SQL.QuickQuery("select Max( TimeStamp ) from Reading");
