@@ -10,50 +10,84 @@
     }
 </style>
 
-    <p style="text-align:center;font-size:172pt; font-weight:600;">@sNow</p>
+<p style="height: 290px; text-align:center;font-size:172pt; font-weight:600;">@sNow</p>
 
-    <table align="center" >
-        <tr>
-            <td colspan="3" > 
-                <p style="text-align:center;font-size:96pt; font-weight:500;">@sTempInt</p>
-            </td>
-            <td > 
-                &nbsp;
-                &nbsp;
-                &nbsp;
-                &nbsp;
-            </td>
-            <td colspan="3"> 
-                <p style="text-align:center;font-size:96pt; font-weight:500;">@sTempExt</p>
-            </td>
-        </tr>
+<table align="center">
+    <tr>
+        <td>
+            <table align="center" style="@styleInt">
+                <tr>
+                    <td colspan="3">
+                        <p style="height: 140px; text-align:center;font-size:96pt; font-weight:500;">@sTempInt</p>
+                    </td>
+                </tr>
 
-        <tr>
-            <td> 
-                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMin</p>
-            </td>
-            <td > 
-                <p style=" vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
-            </td> 
-            <td>
-                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempIntMax</p>
-            </td>
-            <td width="100" > 
-                &nbsp;
-            </td>
-            <td > 
-                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMin</p>
-            </td>
-            <td > 
-                <p style=" vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
-            </td>
-            <td>
-                <p style="text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax</p>
-            </td>        
-        </tr>
-    </table>
+                <tr>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempIntMin</p>
+                    </td>
+                    <td>
+                        <p style="height: 25px; vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
+                    </td>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempIntMax</p>
+                    </td>
+                </tr>
 
-    
+                <tr>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempIntMin48</p>
+                    </td>
+                    <td>
+                        <p style="height: 25px; vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">48h</p>
+                    </td>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempIntMax48</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+        <td width="100">
+            &nbsp;
+        </td>
+
+        <td>
+            <table align="center" style="@styleExt">
+                <tr>
+                    <td colspan="3">
+                        <p style="height: 140px; text-align:center;font-size:96pt; font-weight:500;">@sTempExt</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempExtMin</p>
+                    </td>
+                    <td>
+                        <p style="height: 25px; vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">24h</p>
+                    </td>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempExtMin48</p>
+                    </td>
+                    <td>
+                        <p style="height: 25px; vertical-align:central; text-align:center;font-size:18pt; font-weight:300;">48h</p>
+                    </td>
+                    <td>
+                        <p style="height: 75px; text-align:center;font-size:48pt; font-weight:400;">@sTempExtMax48</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
 
 @code {
     string sNow = "?";
@@ -61,10 +95,16 @@
     string sTempInt = "?";
     string sTempIntMin = "?";
     string sTempIntMax = "?";
+    string sTempIntMin48 = "?";
+    string sTempIntMax48 = "?";
+    string styleInt = "color:gray;";
 
     string sTempExt = "?";
     string sTempExtMin = "?";
     string sTempExtMax = "?";
+    string sTempExtMin48 = "?";
+    string sTempExtMax48 = "?";
+    string styleExt = "color:gray;";
 
     System.Threading.Timer? timerClock;
     System.Threading.Timer? timerTemp;
@@ -94,29 +134,35 @@
         try
         {
             var request = new HttpRequestMessage(HttpMethod.Get, uriInt);
-            request.SetBrowserRequestMode(BrowserRequestMode.Cors);  
-            request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional            
+            request.SetBrowserRequestMode(BrowserRequestMode.Cors);
+            request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional
 
-            using (var httpClient = new HttpClient())            
+            using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var stats = await response.Content.ReadFromJsonAsync<TStats>();
-                    
+
                     try
                     {
                         sTempInt = $"{stats.Temp:0.0} °C";
                         sTempIntMin = $"{stats.TempMin24:0.0}";
                         sTempIntMax = $"{stats.TempMax24:0.0}";
+                        sTempIntMin48 = $"{stats.TempMin48:0.0}";
+                        sTempIntMax48 = $"{stats.TempMax48:0.0}";
                     }
-                    catch{};
+                    catch { };
                 };
             };
+
+            styleInt = "color:white;";
         }
         catch (Exception ex)
         {
+            styleInt = "color:gray; ";
+
             // await this.DisplayAlert("Error", ex.Message, "OK");
             // sTempInt = ex.Message;
         };
@@ -124,10 +170,10 @@
         try
         {
             var request = new HttpRequestMessage(HttpMethod.Get, uriExt);
-            request.SetBrowserRequestMode(BrowserRequestMode.Cors);  
-            request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional            
+            request.SetBrowserRequestMode(BrowserRequestMode.Cors);
+            request.SetBrowserRequestCache(BrowserRequestCache.NoStore); //optional
 
-            using (var httpClient = new HttpClient())            
+            using (var httpClient = new HttpClient())
             {
                 var response = await httpClient.SendAsync(request);
 
@@ -140,13 +186,19 @@
                         sTempExt = $"{stats.Temp:0.0} °C";
                         sTempExtMin = $"{stats.TempMin24:0.0}";
                         sTempExtMax = $"{stats.TempMax24:0.0}";
+                        sTempExtMin48 = $"{stats.TempMin48:0.0}";
+                        sTempExtMax48 = $"{stats.TempMax48:0.0}";
                     }
-                    catch{};
+                    catch { };
                 };
             };
+
+            styleExt = "color:white; ";
         }
         catch (Exception ex)
         {
+            styleExt = "color:gray; ";
+
             // await this.DisplayAlert("Error", ex.Message, "OK");
             // sTempInt = ex.Message;
         };
