@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34414.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOTServer", "IOTServer.csproj", "{9925D4AB-0F9D-40D8-AFAB-C451E5DD9462}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOTServer", "IOTServer\IOTServer.csproj", "{9925D4AB-0F9D-40D8-AFAB-C451E5DD9462}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C57BA082-B4D5-4084-AE91-0FFCAFDECE66}"
 	ProjectSection(SolutionItems) = preProject
-		..\README.md = ..\README.md
+		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOTBlazor", "IOTBlazor\IOTBlazor.csproj", "{26F5DD90-A7CA-4448-ABB2-4E8F080F7AA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{9925D4AB-0F9D-40D8-AFAB-C451E5DD9462}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9925D4AB-0F9D-40D8-AFAB-C451E5DD9462}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9925D4AB-0F9D-40D8-AFAB-C451E5DD9462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26F5DD90-A7CA-4448-ABB2-4E8F080F7AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26F5DD90-A7CA-4448-ABB2-4E8F080F7AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26F5DD90-A7CA-4448-ABB2-4E8F080F7AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26F5DD90-A7CA-4448-ABB2-4E8F080F7AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
