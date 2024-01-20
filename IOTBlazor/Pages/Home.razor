@@ -213,6 +213,6 @@
         SetClock(null);
 
         timerClock = new System.Threading.Timer(SetClock, new System.Threading.AutoResetEvent(false), 10, 10); // 10 milliseconds
-        timerTemp = new System.Threading.Timer(SetTemp, new System.Threading.AutoResetEvent(false), 1000, 1000); // 1000 milliseconds
+        timerTemp = new System.Threading.Timer(SetTemp, new System.Threading.AutoResetEvent(false), 10*1000, 10*1000); // 1000 milliseconds
     }
 }
