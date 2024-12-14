@@ -1,4 +1,4 @@
-
+﻿
 namespace IOTServer
 {
     public class Program
@@ -29,7 +29,7 @@ namespace IOTServer
 
             app.MapControllers();
 
-            app.Run();
+            app.Run("http://*:5000");
         }
     }
 }
