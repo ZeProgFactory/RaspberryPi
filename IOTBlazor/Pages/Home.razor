@@ -50,7 +50,8 @@
 
         <td width="100">
             &nbsp;
-        </td>
+@*             @sTempUpdate
+ *@        </td>
 
         <td>
             <table align="center" style="@styleExt">
@@ -97,6 +98,7 @@
     string sTempIntMax = "?";
     string sTempIntMin48 = "?";
     string sTempIntMax48 = "?";
+    string sTempUpdate = "?";
     string styleInt = "color:gray;";
 
     string sTempExt = "?";
@@ -152,6 +154,8 @@
                         sTempIntMax = $"{stats.TempMax24:0.0}";
                         sTempIntMin48 = $"{stats.TempMin48:0.0}";
                         sTempIntMax48 = $"{stats.TempMax48:0.0}";
+
+                        sTempUpdate = DateTime.Now.ToString("HHmmss");
                     }
                     catch { };
                 };
@@ -213,6 +217,6 @@
         SetClock(null);
 
         timerClock = new System.Threading.Timer(SetClock, new System.Threading.AutoResetEvent(false), 100, 100);	//  100 milliseconds
-        timerTemp = new System.Threading.Timer(SetTemp, new System.Threading.AutoResetEvent(false), 100*1000, 100*1000);//  100 seconds
+        timerTemp = new System.Threading.Timer(SetTemp, new System.Threading.AutoResetEvent(false),1000, 60 * 1000);    //  1 min
     }
 }
