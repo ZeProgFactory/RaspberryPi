@@ -10,39 +10,17 @@ using ZPF.SQL;
 
 namespace ZPF
 {
-    public partial class MainViewModel : BaseViewModel
+    public partial class MainViewModel : BaseViewModel<MainViewModel>
     {
         // - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -
 
-        static MainViewModel _Instance = null;
-
         public JsonSerializerOptions jsonSerializerOptions { get; private set; }
-
-        public static MainViewModel Current
-        {
-            get
-            {
-                if (_Instance == null)
-                {
-                    _Instance = new MainViewModel();
-                };
-
-                return _Instance;
-            }
-
-            set
-            {
-                _Instance = value;
-            }
-        }
 
         // - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -  - -
 
 
         public MainViewModel()
         {
-            _Instance = this;
-
             jsonSerializerOptions = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All),

@@ -29,7 +29,7 @@ namespace IOTServer
 
             app.MapControllers();
 
-            app.Run("http://*:5000");
+            app.Run();
         }
     }
 }
