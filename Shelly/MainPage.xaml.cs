@@ -38,3 +38,21 @@ namespace Shelly
       }
    }
 }
+
+/*
+
+
+https://shelly-XX-eu.shelly.cloud/device/Status&auth_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&id=DeviceID deiner Shelly
+
+Energiedaten:
+
+https://shelly-XX-eu.shelly.cloud/statistics/emeter/consumption?auth_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&channel=X&id=DeviceID deiner Shelly
+
+
+https://loxwiki.atlassian.net/wiki/spaces/LOX/pages/1596489862/Shelly+per+Cloud+abfragen+und+steuern
+
+ {"isok":true,"data":{"devices_status":{"5432045b561c":{"ws":{"connected":false},"mqtt":{"connected":false},"ht_ui":[],"temperature:0":{"id":0,"tC":17.6,"tF":63.7},"ble":[],"devicepower:0":{"id":0,"battery":{"V":5.35,"percent":67},"external":{"present":false}},"sys":{"mac":"5432045B561C","restart_required":false,"time":"22:16","unixtime":1753733762,"uptime":2,"ram_size":256248,"ram_free":145480,"fs_size":1048576,"fs_free":700416,"cfg_rev":17,"kvs_rev":0,"webhook_rev":0,"available_updates":[],"wakeup_reason":{"boot":"deepsleep_wake","cause":"status_update"},"wakeup_period":7200,"reset_reason":8},"ts":1753733762.03,"serial":1753733762,"id":"5432045b561c","humidity:0":{"id":0,"rh":63.9},"_updated":"2025-07-28 20:16:02","code":"S3SN-0U12A","wifi":{"sta_ip":"192.168.10.91","status":"got ip","ssid":"ZPF-AP","rssi":-85},"cloud":{"connected":true},"_sleeping":true,"_dev_info":{"id":"5432045b561c","gen":"G2","code":"S3SN-0U12A","online":true}}},"pending_notifications":{}}}
+
+ 
+ 
+ */ 
