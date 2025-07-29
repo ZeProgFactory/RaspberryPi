@@ -14,27 +14,52 @@ namespace Shelly
 
       string Server = @"https://shelly-191-eu.shelly.cloud";
       string AuthorizationCloudKey = "MzQzMTAxdWlk1054AA7FAE4A26BE57959AFD4B040511A4BD22F3528BAADE8399655865E380B2FAFD596F34816CC4";
+      string DeviceID = "5432045b561c";
 
       private async void OnCounterClicked(object? sender, EventArgs e)
       {
          string url = $"{Server}/device/all_status?show_info=true&no_shared=true&auth_key={AuthorizationCloudKey}";
+         //string url = $"{Server}/device/all_status?show_info=true&no_shared=true&auth_key={AuthorizationCloudKey}&id={DeviceID}";
 
          using HttpClient client = new HttpClient();
          HttpResponseMessage response = await client.GetAsync(url);
          string json = await response.Content.ReadAsStringAsync();
 
-         var allDevices = JsonSerializer.Deserialize<AllDevices>(json);
+         Temperature0 temperature;
+         Devicepower0 devicepower;
+         Humidity0 humidity;
+         Wifi wifi;
 
-         var temperature = allDevices.data.devices_status._5432045b561c.temperature0.tC;
-         var humidity = allDevices.data.devices_status._5432045b561c.humidity0.rh;
-         var battery = allDevices.data.devices_status._5432045b561c.devicepower0.battery.percent;
+         using (var jsonDoc = JsonDocument.Parse(json))
+         {
+            var data = jsonDoc.RootElement.GetProperty("data");
+            var devices = data.GetProperty("devices_status");
+            var HT01 = devices.GetProperty("5432045b561c");
 
-         var temperature = allDevices.data.devices_status. data. devices_status. _5432045b561c.temperature0.tC;
-         var humidity = allDevices.data.devices_status._5432045b561c.humidity0.rh;
-         var battery = allDevices.data.devices_status._5432045b561c.devicepower0.battery.percent;
+            var jsonT = HT01.GetProperty("temperature:0");
+            temperature = jsonT.Deserialize<Temperature0>();
 
+            var jsonP = HT01.GetProperty("devicepower:0");
+            devicepower = jsonP.Deserialize<Devicepower0>();
 
-         CounterBtn.Text = $"Temperature: {temperature} °C - humidity {humidity} %";
+            var jsonH = HT01.GetProperty("humidity:0");
+            humidity = jsonH.Deserialize<Humidity0>();
+
+            var jsonW = HT01.GetProperty("wifi");
+            wifi = jsonW.Deserialize<Wifi>();
+         }
+
+         //json = json.Replace("temperature:0", "temperature0");
+         //json = json.Replace("devicepower:0", "devicepower0");
+         //json = json.Replace("humidity:0", "humidity0");
+
+         //var allDevices = JsonSerializer.Deserialize<AllDevices>(json, new JsonSerializerOptions {  });
+
+         //var temperature = allDevices.data.devices_status._5432045b561c.temperature0.tC;
+         //var humidity = allDevices.data.devices_status._5432045b561c.humidity0.rh;
+         //var battery = allDevices.data.devices_status._5432045b561c.devicepower0.battery.percent;
+
+         CounterBtn.Text = $"{temperature.tC} °C - {humidity.rh} % - ({devicepower.battery.percent} % / {wifi.sta_ip} {wifi.rssi} dB)";
       }
    }
 }
@@ -55,4 +80,4 @@ https://loxwiki.atlassian.net/wiki/spaces/LOX/pages/1596489862/Shelly+per+Cloud+
 
  
  
- */ 
+ */

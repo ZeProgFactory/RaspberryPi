@@ -16,21 +16,21 @@ public class AllDevices
 public class Data
 {
    public Devices_Status devices_status { get; set; }
-   public Pending_Notifications pending_notifications { get; set; }
+   //public Pending_Notifications pending_notifications { get; set; }
 }
 
 public class Devices_Status
 {
-   public _5432045B561c 5432045b561c { get; set; }
+   public _5432045B561c _5432045b561c { get; set; }
 }
 
 public class _5432045B561c
 {
    public Ws ws { get; set; }
    public Mqtt mqtt { get; set; }
-   public object[] ht_ui { get; set; }
+   //public object[] ht_ui { get; set; }
    public Temperature0 temperature0 { get; set; }
-   public object[] ble { get; set; }
+   //public object[] ble { get; set; }
    public Devicepower0 devicepower0 { get; set; }
    public Sys sys { get; set; }
    public float ts { get; set; }
@@ -94,7 +94,7 @@ public class Sys
    public int cfg_rev { get; set; }
    public int kvs_rev { get; set; }
    public int webhook_rev { get; set; }
-   public object[] available_updates { get; set; }
+   //public object[] available_updates { get; set; }
    public Wakeup_Reason wakeup_reason { get; set; }
    public int wakeup_period { get; set; }
    public int reset_reason { get; set; }
@@ -136,6 +136,11 @@ public class _Dev_Info
 public class Pending_Notifications
 {
 }
+
+
+
+
+
 
 
 
