@@ -47,6 +47,10 @@ namespace Shelly
 
             var jsonW = HT01.GetProperty("wifi");
             wifi = jsonW.Deserialize<Wifi>();
+
+            var updated = HT01.GetProperty("_updated");
+
+            var connected = HT01.GetProperty("ws").GetProperty("connected");
          }
 
          //json = json.Replace("temperature:0", "temperature0");
